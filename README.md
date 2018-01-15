@@ -1,5 +1,13 @@
 # Array-filter
 
+<p align="center">
+
+[![Build Status](https://travis-ci.org/seredenko/array-filter.svg?branch=master)](https://travis-ci.org/seredenko/array-filter)
+[![Latest Stable Version](https://poser.pugx.org/seredenko/array-filter/v/stable)](https://packagist.org/packages/seredenko/array-filter)
+[![Total Downloads](https://poser.pugx.org/seredenko/array-filter/downloads)](https://packagist.org/packages/seredenko/array-filter)
+[![License](https://poser.pugx.org/seredenko/array-filter/license)](https://packagist.org/packages/seredenko/array-filter)
+</p>
+
 Array-filter is library for filtering arrays by pytons-style. You can put your filter conditions 
 in array like a key and get filtered array.
 

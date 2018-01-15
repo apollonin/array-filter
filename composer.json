@@ -2,7 +2,7 @@
   "name": "seredenko/array-filter",
   "type": "library",
   "description": "Array filter",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "keywords": [
     "array",
     "filter"
