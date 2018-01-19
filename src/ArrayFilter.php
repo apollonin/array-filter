@@ -41,6 +41,20 @@ class ArrayFilter extends \ArrayObject
     }
 
     /**
+     * Set new value for each key in filtered array
+     *
+     * @param mixed $key
+     * @param mixed $newValue
+     */
+    public function offsetSet($key, $newValue)
+    {
+        foreach ($this as &$value)
+        {
+            $value[$key] = $newValue;
+        }
+    }
+
+    /**
      * Use magic method for realize array functions for this object
      *
      * @param $func

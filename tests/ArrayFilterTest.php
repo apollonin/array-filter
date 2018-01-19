@@ -18,7 +18,7 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterByNameExplicit()
     {
-        $res = $this->filter[ 'name == Hutchinson' ];
+        $res = $this->filter['name == Hutchinson'];
 
         foreach ($res as $value) {
             $this->assertEquals('Hutchinson', $value['name']);
@@ -27,7 +27,7 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterBalanceGt()
     {
-        $res = $this->filter[ 'balance > 5' ];
+        $res = $this->filter['balance > 5'];
 
         foreach ($res as $value) {
             $this->assertGreaterThan(5, $value['balance']);
@@ -36,7 +36,7 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterAndLogic()
     {
-        $res = $this->filter[ 'suspicious == false && balance != 0' ];
+        $res = $this->filter['suspicious == false && balance != 0'];
 
         foreach ($res as $value) {
             $this->assertEquals(false, $value['suspicious']);
@@ -46,7 +46,7 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterAndLogic2()
     {
-        $res = $this->filter[ 'suspicious == true && eyeColor == brown' ];
+        $res = $this->filter['suspicious == true && eyeColor == brown'];
 
         foreach ($res as $value) {
             $this->assertEquals(true, $value['suspicious']);
@@ -56,10 +56,20 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterOrLogic()
     {
-        $res = $this->filter[ 'name == Rosemary || name == Gregory' ];
+        $res = $this->filter['name == Rosemary || name == Gregory'];
 
         foreach ($res as $value) {
             $this->assertContains($value['name'], ['Rosemary', 'Gregory']);
+        }
+    }
+
+    public function testSetNewValueForFilteredArray()
+    {
+        $res = $this->filter['name == Gregory || balance == 6.99']['name:balance'];
+        $res['balance'] = 0;
+
+        foreach ($res as $value) {
+            $this->assertEquals(0, $value['balance']);
         }
     }
 }

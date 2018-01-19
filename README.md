@@ -61,7 +61,7 @@ where write all keys, divided by ':'**
   $filteredArray = $filter['name == Gregory || balance == 6.99']['name:balance'];
 ```
 
-**For getting results of filtering in new array - use one of two methods.**
+**For getting results of filtering in new array - use one of two methods or cast object to array**
 
 ```
   // return filtered result with fresh keys, from 0 to end of array
@@ -69,8 +69,16 @@ where write all keys, divided by ':'**
   
   // return filtered result with saving keys from original array
   $result = $filteredArray->getArrayCopy();
+  
+  // cast object to array
+  $result = (array) $filteredArray;
 ```
 
+**Set new value for one of fields in filtered array**
+```
+  $filteredArray = $filter['name == Gregory || balance == 6.99']['name:balance'];
+  $filteredArray['balance'] = 0;
+```
 
 **You can use array-filter object like a normal array in loops**
 
