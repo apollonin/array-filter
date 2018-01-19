@@ -12,37 +12,71 @@ Array-filter is library for filtering arrays by pytons-style. You can put your f
 in array like a key and get filtered array.
 
 
-Array-filter supports any of comparison operators [==, != , >, <, >=, <=].
-Also you can use one of condition operators (AND -> &&, OR -> ||)
+Array-filter supports any of comparison operators `[==, != , >, <, >=, <=]`.
+Also you can use one of condition operators `(AND -> &&, OR -> ||)`
 
 ## Installation
 
-### With composer
+### Via composer
 `composer require seredenko/array-filter`
 
 ## Usage
 
 **create new array-filter object and put your array for filtering**
 ```
-$filter = new ArrayFilter($yourArray);
+  $filter = new ArrayFilter($yourArray);
 ```
 
 **using simple filter**
 ```
-$filteredArray1 = $filter['name == John'];
+  $filteredArray1 = $filter['name == John'];
 
-$filteredArray2 = $filter['balance > 5'];
+  $filteredArray2 = $filter['balance > 5'];
 
-$filteredArray3 = $filter['suspicious != true'];
+  $filteredArray3 = $filter['suspicious != true'];
 ```
 
 **using filter with condition**
 ```
-$filteredArray1 = $filter['name == John && balance > 5'];
+  $filteredArray1 = $filter['name == John && balance > 5'];
 
-$filteredArray2 = $filter['balance > 5 || suspicious != true'];
+  $filteredArray2 = $filter['balance > 5 || suspicious != true'];
 
-$filteredArray3 = $filter['suspicious != true && balance != 0'];
+  $filteredArray3 = $filter['suspicious != true && balance != 0'];
 ```
 
-You will get empty array if nothing doesn't match your filter
+**array-filter returns you a new self-object with filtered array. You can use keys chaining for 
+filtering filtered result**
+
+```
+  // second key will filter result of first key
+
+  $filteredArray = $filter['isActive == true || balance == 6.99']['suspicious == false && age < 40']
+```
+
+**If you want to get specific fields from original array or from filtered array use key, 
+where write all keys, divided by ':'**
+
+```
+  $filteredArray = $filter['name == Gregory || balance == 6.99']['name:balance'];
+```
+
+**For getting results of filtering in new array - use one of two methods.**
+
+```
+  // return filtered result with fresh keys, from 0 to end of array
+  $result = $filteredArray->array_values();
+  
+  // return filtered result with saving keys from original array
+  $result = $filteredArray->getArrayCopy();
+```
+
+
+**You can use array-filter object like a normal array in loops**
+
+```
+  foreach($filteredArray as $value)
+  {
+    print_r($value);
+  }
+``` 

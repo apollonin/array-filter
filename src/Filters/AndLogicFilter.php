@@ -1,12 +1,12 @@
 <?php
 
-namespace Seredenko\LogicFilters;
+namespace Seredenko\Filters;
 
 use Seredenko\Operator;
 
 /**
  * Class AndLogicFilter
- * @package Seredenko\LogicFilters
+ * @package Seredenko\Filters
  */
 class AndLogicFilter extends BaseLogicFilter implements Filterable
 {
