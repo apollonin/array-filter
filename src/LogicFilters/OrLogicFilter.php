@@ -8,7 +8,7 @@ use Seredenko\Operator;
  * Class OrLogicFilter
  * @package Seredenko\LogicFilters
  */
-class OrLogicFilter extends BaseLogicFilter
+class OrLogicFilter extends BaseLogicFilter implements Filterable
 {
     const LOGIC_OPERATOR = Operator::LOGIC_OR;
 

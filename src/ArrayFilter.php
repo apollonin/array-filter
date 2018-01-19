@@ -3,49 +3,11 @@
 namespace Seredenko;
 
 use Seredenko\LogicFilters\AndLogicFilter;
+use Seredenko\LogicFilters\FieldFilter;
 use Seredenko\LogicFilters\OrLogicFilter;
 
-class ArrayFilter implements \ArrayAccess
+class ArrayFilter extends \ArrayObject
 {
-    /**
-     * @var array
-     */
-    public $array;
-
-    /**
-     * Array of filters by condition (AND or OR)
-     *
-     * @var array
-     */
-    private $filters = [];
-
-    /**
-     * ArrayFilter constructor.
-     *
-     * @param array $array
-     */
-    public function __construct(array $array = [])
-    {
-        $this->array = $array;
-    }
-
-    /**
-     * Filter array by condition
-     *
-     * @param array $array
-     *
-     * @return array
-     */
-    public function filter()
-    {
-        $res = [];
-        foreach ($this->filters as $filter) {
-            $res = array_merge($res, $filter->filter());
-        }
-
-        return $res;
-    }
-
     /**
      * Whether a offset exists
      * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
@@ -71,20 +33,20 @@ class ArrayFilter implements \ArrayAccess
      * @param string $offset <p>
      *                      The offset to retrieve.
      *                      </p>
-     * @return mixed Can return all value types.
+     * @return \ArrayObject Can return all value types.
      * @since 5.0.0
      */
     public function offsetGet($filterString)
     {
-        if (strstr($filterString, Operator::LOGIC_AND)) {
-            $this->filters[] = new AndLogicFilter($this->array, $filterString);
-        } elseif (strstr($filterString, Operator::LOGIC_OR)) {
-            $this->filters[] = new OrLogicFilter($this->array, $filterString);
+        if (strpos($filterString, Operator::LOGIC_AND)) {
+            $filter = new AndLogicFilter($this->getArrayCopy(), $filterString);
+        } elseif (strpos($filterString, Operator::LOGIC_OR)) {
+            $filter = new OrLogicFilter($this->getArrayCopy(), $filterString);
         } else {
-            $this->filters[] = new AndLogicFilter($this->array, $filterString);
+            $filter = new FieldFilter($this->getArrayCopy(), $filterString);
         }
 
-        return $this->filter();
+        return new $this($filter->filter());
     }
 
     /**
@@ -120,5 +82,14 @@ class ArrayFilter implements \ArrayAccess
     public function offsetUnset($offset)
     {
         unset($this->array[$offset]);
+    }
+
+    public function __call($func, $argv)
+    {
+        if (!is_callable($func) || substr($func, 0, 6) !== 'array_')
+        {
+            throw new \BadMethodCallException(__CLASS__.'->'.$func);
+        }
+        return call_user_func_array($func, array_merge(array($this->array), $argv));
     }
 }
