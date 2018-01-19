@@ -1,7 +1,11 @@
 <?php
 
-namespace Seredenko\LogicFilters;
+namespace Seredenko\Filters;
 
+/**
+ * Class BaseLogicFilter
+ * @package Seredenko\Filters
+ */
 abstract class BaseLogicFilter
 {
     const LOGIC_OPERATOR = null;
@@ -72,7 +76,7 @@ abstract class BaseLogicFilter
     }
 
     /**
-     * Main function for LogicFilters
+     * Main function for Filters
      *
      * @param string $key
      * @param array $value

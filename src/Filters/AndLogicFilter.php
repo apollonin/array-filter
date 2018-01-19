@@ -1,14 +1,14 @@
 <?php
 
-namespace Seredenko\LogicFilters;
+namespace Seredenko\Filters;
 
 use Seredenko\Operator;
 
 /**
  * Class AndLogicFilter
- * @package Seredenko\LogicFilters
+ * @package Seredenko\Filters
  */
-class AndLogicFilter extends BaseLogicFilter
+class AndLogicFilter extends BaseLogicFilter implements Filterable
 {
     const LOGIC_OPERATOR = Operator::LOGIC_AND;
 

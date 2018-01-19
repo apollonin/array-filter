@@ -12,6 +12,7 @@ abstract class Operator
     const NOT_EQUAL = '!=';
     const LOGIC_AND = '&&';
     const LOGIC_OR = '||';
+    const FIELDS_DELIMITER = ':';
 
     /**
      * @var string[]

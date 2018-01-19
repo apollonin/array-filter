@@ -18,37 +18,27 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterByNameExplicit()
     {
-        $filter = 'name == Hutchinson';
-        $condition = explode(' ', $filter);
+        $res = $this->filter[ 'name == Hutchinson' ];
 
-        $res = $this->filter[ $filter ];
-
-        foreach ($res as $value)
-        {
-            $this->assertEquals($condition[2], $value[ $condition[0] ]);
+        foreach ($res as $value) {
+            $this->assertEquals('Hutchinson', $value['name']);
         }
     }
 
     public function testFilterBalanceGt()
     {
-        $filter = 'balance > 5';
+        $res = $this->filter[ 'balance > 5' ];
 
-        $res = $this->filter[ $filter ];
-
-        foreach ($res as $value)
-        {
+        foreach ($res as $value) {
             $this->assertGreaterThan(5, $value['balance']);
         }
     }
 
     public function testFilterAndLogic()
     {
-        $filter = 'suspicious == false && balance != 0';
+        $res = $this->filter[ 'suspicious == false && balance != 0' ];
 
-        $res = $this->filter[ $filter ];
-
-        foreach ($res as $value)
-        {
+        foreach ($res as $value) {
             $this->assertEquals(false, $value['suspicious']);
             $this->assertNotEquals(0, $value['balance']);
         }
@@ -56,12 +46,9 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterAndLogic2()
     {
-        $filter = 'suspicious == true && eyeColor == brown';
+        $res = $this->filter[ 'suspicious == true && eyeColor == brown' ];
 
-        $res = $this->filter[ $filter ];
-
-        foreach ($res as $value)
-        {
+        foreach ($res as $value) {
             $this->assertEquals(true, $value['suspicious']);
             $this->assertEquals('brown', $value['eyeColor']);
         }
@@ -69,12 +56,9 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterOrLogic()
     {
-        $filter = 'name == Rosemary || name == ride';
+        $res = $this->filter[ 'name == Rosemary || name == Gregory' ];
 
-        $res = $this->filter[ $filter ];
-
-        foreach ($res as $value)
-        {
+        foreach ($res as $value) {
             $this->assertContains($value['name'], ['Rosemary', 'Gregory']);
         }
     }

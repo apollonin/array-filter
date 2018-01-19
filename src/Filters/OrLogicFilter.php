@@ -1,14 +1,14 @@
 <?php
 
-namespace Seredenko\LogicFilters;
+namespace Seredenko\Filters;
 
 use Seredenko\Operator;
 
 /**
  * Class OrLogicFilter
- * @package Seredenko\LogicFilters
+ * @package Seredenko\Filters
  */
-class OrLogicFilter extends BaseLogicFilter
+class OrLogicFilter extends BaseLogicFilter implements Filterable
 {
     const LOGIC_OPERATOR = Operator::LOGIC_OR;
 
