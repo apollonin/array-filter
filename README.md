@@ -24,6 +24,14 @@ Also you can use one of condition operators `(AND -> &&, OR -> ||)`
 
 **create new array-filter object and put your array for filtering**
 ```
+  $yourArray = [
+    0 => ['name' => 'John', 'balance' => 1.00, 'isActive' => true],
+    1 => ['name' => 'Mike', 'balance' => 10.00, 'isActive' => true],
+    2 => ['name' => 'Gregor', 'balance' => 100.00, 'isActive' => false],
+    ...
+  ];
+
+
   $filter = new ArrayFilter($yourArray);
 ```
 
