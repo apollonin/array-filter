@@ -8,8 +8,7 @@
 [![License](https://poser.pugx.org/seredenko/array-filter/license)](https://packagist.org/packages/seredenko/array-filter)
 </p>
 
-Array-filter is library for filtering arrays by pytons-style. You can put your filter conditions 
-in array like a key and get filtered array.
+Array-filter is library for filtering arrays in [python-way](https://www.python.org/dev/peps/pep-0020/). You are able to pass your conditions as array index and get filtered array.
 
 
 Array-filter supports any of comparison operators `[==, != , >, <, >=, <=]`.
@@ -53,8 +52,7 @@ Also you can use one of condition operators `(AND -> &&, OR -> ||)`
   $filteredArray3 = $filter['suspicious != true && balance != 0'];
 ```
 
-**array-filter returns you a new self-object with filtered array. You can use keys chaining for 
-filtering filtered result**
+**array-filter returns a new self-object with filtered array. You can use keys chaining for filtering filtered result**
 
 ```
   // second key will filter result of first key
@@ -62,14 +60,13 @@ filtering filtered result**
   $filteredArray = $filter['isActive == true || balance == 6.99']['suspicious == false && age < 40']
 ```
 
-**If you want to get specific fields from original array or from filtered array use key, 
-where write all keys, divided by ':'**
+**If you want to get specific fields from original array or from filtered array, pass string with desired fields, divided by ':'**
 
 ```
   $filteredArray = $filter['name == Gregory || balance == 6.99']['name:balance'];
 ```
 
-**For getting results of filtering in new array - use one of two methods or cast object to array**
+**If you want to get filtered result as normal php array, you could get it via methods or cast to array excplicitly**
 
 ```
   // return filtered result with fresh keys, from 0 to end of array
