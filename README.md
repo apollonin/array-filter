@@ -8,7 +8,7 @@
 [![License](https://poser.pugx.org/seredenko/array-filter/license)](https://packagist.org/packages/seredenko/array-filter)
 </p>
 
-Array-filter is library for filtering arrays in [python-way](https://www.python.org/dev/peps/pep-0020/). You are able to pass your conditions as array index and get filtered array.
+Array-filter is a library for filtering arrays in [python-way](https://www.python.org/dev/peps/pep-0020/). You can set up your condition as an array index, and get a filtered array..
 
 
 Array-filter supports any of comparison operators `[==, != , >, <, >=, <=]`.
@@ -21,7 +21,7 @@ Also you can use one of condition operators `(AND -> &&, OR -> ||)`
 
 ## Usage
 
-**create new array-filter object and put your array for filtering**
+**create a new array-filter object and put your array for filtering**
 ```
   $yourArray = [
     0 => ['name' => 'John', 'balance' => 1.00, 'isActive' => true],
@@ -52,7 +52,7 @@ Also you can use one of condition operators `(AND -> &&, OR -> ||)`
   $filteredArray3 = $filter['suspicious != true && balance != 0'];
 ```
 
-**array-filter returns a new self-object with filtered array. You can use keys chaining for filtering filtered result**
+**An array-filter returns a new self-object with filtered array. You can use chaining keys for filtering the already result **
 
 ```
   // second key will filter result of first key
@@ -60,13 +60,13 @@ Also you can use one of condition operators `(AND -> &&, OR -> ||)`
   $filteredArray = $filter['isActive == true || balance == 6.99']['suspicious == false && age < 40']
 ```
 
-**If you want to get specific fields from original array or from filtered array, pass string with desired fields, divided by ':'**
+**If you want to get specific fields from the original array or from filtered array, input a line with the desired fields, divided by ':'**
 
 ```
   $filteredArray = $filter['name == Gregory || balance == 6.99']['name:balance'];
 ```
 
-**If you want to get filtered result as normal php array, you could get it via methods or cast to array excplicitly**
+**If you want to get a filtered result as a normal php array, you can get it via methods or data turning directly to the array**
 
 ```
   // return filtered result with fresh keys, from 0 to end of array
@@ -79,13 +79,13 @@ Also you can use one of condition operators `(AND -> &&, OR -> ||)`
   $result = (array) $filteredArray;
 ```
 
-**Set new value for one of fields in filtered array**
+**Set new value for one of the fields in the filtered array**
 ```
   $filteredArray = $filter['name == Gregory || balance == 6.99']['name:balance'];
   $filteredArray['balance'] = 0;
 ```
 
-**You can use array-filter object like a normal array in loops**
+**You can use the array-filter object like a normal array in loops**
 
 ```
   foreach($filteredArray as $value)
