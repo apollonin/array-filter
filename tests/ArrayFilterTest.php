@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Seredenko\ArrayFilter;
+use Seredenko\Exception\InvalidOperatorException;
 
 class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -71,5 +72,12 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
         foreach ($res as $value) {
             $this->assertEquals(0, $value['balance']);
         }
+    }
+
+    public function testInvalidOperatorException()
+    {
+        $this->expectException(InvalidOperatorException::class);
+
+        $this->filter['name <> Gregory || age == 40']['name:balance'];
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Seredenko\Filters;
 
+use Seredenko\Exception\InvalidOperatorException;
+use Seredenko\Operator;
+
 /**
  * Class BaseLogicFilter
  * @package Seredenko\Filters
@@ -62,6 +65,9 @@ abstract class BaseLogicFilter
     {
         foreach ($this->array as $key => $value) {
             foreach ($this->conditions as list($k, $op, $v)) {
+                if (!in_array($op, Operator::$operators))
+                    throw new InvalidOperatorException();
+
                 $this->convertVariableType($v);
 
                 if (!$this->logicFilter($key, $value, $k, $op, $v)) {
