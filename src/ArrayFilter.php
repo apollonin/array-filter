@@ -5,6 +5,7 @@ namespace Seredenko;
 use Seredenko\Filters\AndLogicFilter;
 use Seredenko\Filters\FieldFilter;
 use Seredenko\Filters\OrLogicFilter;
+use Seredenko\Filters\RangeFilter;
 
 /**
  * Class ArrayFilter
@@ -29,11 +30,20 @@ class ArrayFilter extends \ArrayObject
      */
     public function offsetGet($filterString)
     {
-        if (strpos($filterString, Operator::FIELDS_DELIMITER)) {
+        if (strpos($filterString, Operator::FIELDS_DELIMITER))
+        {
             $filter = new FieldFilter($this->getArrayCopy(), $filterString);
-        } elseif (strpos($filterString, Operator::LOGIC_OR)) {
+        }
+        elseif (strpos($filterString, Operator::RANGE_DELIMITER))
+        {
+            $filter = new RangeFilter($this->getArrayCopy(), $filterString);
+        }
+        elseif (strpos($filterString, Operator::LOGIC_OR))
+        {
             $filter = new OrLogicFilter($this->getArrayCopy(), $filterString);
-        } else {
+        }
+        else
+        {
             $filter = new AndLogicFilter($this->getArrayCopy(), $filterString);
         }
 
@@ -50,7 +60,7 @@ class ArrayFilter extends \ArrayObject
     {
         foreach ($this as &$value)
         {
-            $value[$key] = $newValue;
+            $value[ $key ] = $newValue;
         }
     }
 
@@ -64,7 +74,8 @@ class ArrayFilter extends \ArrayObject
      */
     public function __call($func, $argv)
     {
-        if (!is_callable($func) || substr($func, 0, 6) !== 'array_') {
+        if (!is_callable($func) || substr($func, 0, 6) !== 'array_')
+        {
             throw new \BadMethodCallException(__CLASS__ . '->' . $func);
         }
 

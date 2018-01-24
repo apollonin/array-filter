@@ -2,6 +2,8 @@
 
 namespace Seredenko\Filters;
 
+use Seredenko\Operator;
+
 /**
  * Class FieldFilter
  * @package Seredenko\Filters
@@ -21,7 +23,7 @@ class FieldFilter implements Filterable
     public function __construct(array $array, $fieldsString)
     {
         $this->array = $array;
-        $this->fields = explode(':', $fieldsString);
+        $this->fields = array_map('trim',explode(Operator::FIELDS_DELIMITER,$fieldsString));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Tests;
 
 use Seredenko\ArrayFilter;
 use Seredenko\Exception\InvalidOperatorException;
+use Seredenko\Exception\InvalidRangeFields;
 
 class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -66,7 +67,7 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetNewValueForFilteredArray()
     {
-        $res = $this->filter['name == Gregory || balance == 6.99']['name:balance'];
+        $res = $this->filter['name == Gregory || balance == 6.99']['balance:name'];
         $res['balance'] = 0;
 
         foreach ($res as $value) {
@@ -78,6 +79,13 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
     {
         $this->expectException(InvalidOperatorException::class);
 
-        $this->filter['name <> Gregory || age == 40']['name:balance'];
+        $this->filter['name <> Gregory || age == 40']['name, balance'];
+    }
+
+    public function testInvalidRangeFieldsException()
+    {
+        $this->expectException(InvalidRangeFields::class);
+
+        $this->filter['name:balance'];
     }
 }

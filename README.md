@@ -85,6 +85,14 @@ Also you can use one of condition operators `(AND -> &&, OR -> ||)`
   $filteredArray['balance'] = 0;
 ```
 
+**Get slice of filtered array by start and end keys. Be sure that you first field bigger than second**
+```
+  $result = $filter['balance:name'];
+  
+  //  $result = $filter['name:balance']; throw exception InvalidRangeFields
+```
+
+
 **You can use the array-filter object like a normal array in loops**
 
 ```
