@@ -2,8 +2,6 @@
 
 namespace Seredenko\Filters;
 
-use Seredenko\Exception\InvalidOperatorException;
-use Seredenko\Operator;
 
 /**
  * Class BaseLogicFilter
@@ -43,12 +41,10 @@ abstract class BaseLogicFilter implements Filterable
     {
         foreach ($this->array as $key => $value) {
             foreach ($this->conditions as list($k, $op, $v)) {
-                if (!in_array($op, Operator::$operators))
-                    throw new InvalidOperatorException();
 
                 $this->convertVariableType($v);
 
-                if (!$this->logicFilter($key, $value, $k, $op, $v)) {
+                if (!$this->logicFilter($key, $value[$k], $op, $v)) {
                     continue 2;
                 }
             }
@@ -97,5 +93,5 @@ abstract class BaseLogicFilter implements Filterable
      *
      * @return bool
      */
-    abstract protected function logicFilter($key, $value, $k, $op, $v);
+    abstract protected function logicFilter($key, $valueK, $op, $v);
 }

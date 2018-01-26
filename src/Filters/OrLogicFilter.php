@@ -2,6 +2,7 @@
 
 namespace Seredenko\Filters;
 
+use Seredenko\Exception\InvalidOperatorException;
 use Seredenko\Operator;
 
 /**
@@ -13,17 +14,15 @@ class OrLogicFilter extends BaseLogicFilter
     const LOGIC_OPERATOR = Operator::LOGIC_OR;
 
     /**
-     * Logic filter of OR condition
-     *
      * @param string $key
-     * @param array  $value
-     * @param string $k
+     * @param        $valueK
      * @param string $op
      * @param string $v
      *
      * @return bool
+     * @throws InvalidOperatorException
      */
-    protected function logicFilter($key, $value, $k, $op, $v)
+    protected function logicFilter($key, $valueK, $op, $v)
     {
         if ($this->filterMask[ $key ]) {
             return false;
@@ -31,40 +30,37 @@ class OrLogicFilter extends BaseLogicFilter
 
         switch ($op) {
             case Operator::EQUAL:
-                if ($value[ $k ] == $v) {
-                    return $this->filterMask[ $key ] = true;
+                if ($valueK == $v) {
+                    $this->filterMask[ $key ] = true;
                 }
                 break;
             case Operator::NOT_EQUAL:
-                if ($value[ $k ] != $v) {
-                    return $this->filterMask[ $key ] = true;
+                if ($valueK != $v) {
+                    $this->filterMask[ $key ] = true;
                 }
                 break;
             case Operator::GREATER:
-                if ($value[ $k ] > $v) {
-                    return $this->filterMask[ $key ] = true;
+                if ($valueK > $v) {
+                    $this->filterMask[ $key ] = true;
                 }
                 break;
             case Operator::GREATER_EQUAL:
-                if ($value[ $k ] >= $v) {
-                    return $this->filterMask[ $key ] = true;
+                if ($valueK >= $v) {
+                    $this->filterMask[ $key ] = true;
                 }
                 break;
             case Operator::LESS:
-                if ($value[ $k ] < $v) {
-                    return $this->filterMask[ $key ] = true;
+                if ($valueK < $v) {
+                    $this->filterMask[ $key ] = true;
                 }
                 break;
             case Operator::LESS_EQUAL:
-                if ($value[ $k ] <= $v) {
-                    return $this->filterMask[ $key ] = true;
+                if ($valueK <= $v) {
+                    $this->filterMask[ $key ] = true;
                 }
                 break;
             default:
-                if ($value[ $k ] == $v) {
-                    return $this->filterMask[ $key ] = false;
-                }
-                break;
+                throw new InvalidOperatorException();
         }
 
         return true;

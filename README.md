@@ -6,6 +6,9 @@
 [![Latest Stable Version](https://poser.pugx.org/seredenko/array-filter/v/stable)](https://packagist.org/packages/seredenko/array-filter)
 [![Total Downloads](https://poser.pugx.org/seredenko/array-filter/downloads)](https://packagist.org/packages/seredenko/array-filter)
 [![License](https://poser.pugx.org/seredenko/array-filter/license)](https://packagist.org/packages/seredenko/array-filter)
+[![codecov](https://codecov.io/gh/seredenko/array-filter/branch/master/graph/badge.svg)](https://codecov.io/gh/seredenko/array-filter)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f4c3898b08d2e5437054/maintainability)](https://codeclimate.com/github/seredenko/array-filter/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f4c3898b08d2e5437054/test_coverage)](https://codeclimate.com/github/seredenko/array-filter/test_coverage)
 </p>
 
 Array-filter is a library for filtering arrays in [python-way](https://www.python.org/dev/peps/pep-0020/). You can set up your condition as an array index, and get a filtered array..

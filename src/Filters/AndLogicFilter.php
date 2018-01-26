@@ -2,6 +2,7 @@
 
 namespace Seredenko\Filters;
 
+use Seredenko\Exception\InvalidOperatorException;
 use Seredenko\Operator;
 
 /**
@@ -23,45 +24,31 @@ class AndLogicFilter extends BaseLogicFilter
      *
      * @return bool
      */
-    protected function logicFilter($key, $value, $k, $op, $v)
+    protected function logicFilter($key, $valueK, $op, $v)
     {
         switch ($op) {
             case Operator::EQUAL:
-                if ($value[ $k ] == $v) {
-                    return $this->filterMask[ $key ] = true;
-                }
+                    $this->filterMask[ $key ] = $valueK == $v ? true : false;
                 break;
             case Operator::NOT_EQUAL:
-                if ($value[ $k ] != $v) {
-                    return $this->filterMask[ $key ] = true;
-                }
+                    $this->filterMask[ $key ] = $valueK != $v ? true : false;
                 break;
             case Operator::GREATER:
-                if ($value[ $k ] > $v) {
-                    return $this->filterMask[ $key ] = true;
-                }
+                    $this->filterMask[ $key ] = $valueK > $v ? true : false;
                 break;
             case Operator::GREATER_EQUAL:
-                if ($value[ $k ] >= $v) {
-                    return $this->filterMask[ $key ] = true;
-                }
+                    $this->filterMask[ $key ] = $valueK >= $v ? true : false;
                 break;
             case Operator::LESS:
-                if ($value[ $k ] < $v) {
-                    return $this->filterMask[ $key ] = true;
-                }
+                    $this->filterMask[ $key ] = $valueK < $v ? true : false;
                 break;
             case Operator::LESS_EQUAL:
-                if ($value[ $k ] <= $v) {
-                    return $this->filterMask[ $key ] = true;
-                }
+                    $this->filterMask[ $key ] = $valueK <= $v ? true : false;
                 break;
             default:
-                return $this->filterMask[ $key ] = false;
-
-                break;
+                throw new InvalidOperatorException();
         }
 
-        return $this->filterMask[ $key ] = false;
+        return $this->filterMask[ $key ];
     }
 }
