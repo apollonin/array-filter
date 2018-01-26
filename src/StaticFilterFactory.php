@@ -22,20 +22,14 @@ final class StaticFilterFactory
             throw new \InvalidArgumentException('Wrong filter string');
 
         if (strpos($filterString, Operator::FIELDS_DELIMITER))
-        {
             return new FieldFilter($filterString);
-        }
-        elseif (strpos($filterString, Operator::RANGE_DELIMITER))
-        {
+
+        if (strpos($filterString, Operator::RANGE_DELIMITER))
             return new RangeFilter($filterString);
-        }
-        elseif (strpos($filterString, Operator::LOGIC_OR))
-        {
+
+        if (strpos($filterString, Operator::LOGIC_OR))
             return new OrLogicFilter($filterString);
-        }
-        else
-        {
-            return new AndLogicFilter($filterString);
-        }
+
+        return new AndLogicFilter($filterString);
     }
 }
