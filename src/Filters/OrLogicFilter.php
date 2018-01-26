@@ -8,14 +8,9 @@ use Seredenko\Operator;
  * Class OrLogicFilter
  * @package Seredenko\Filters
  */
-class OrLogicFilter extends BaseLogicFilter implements Filterable
+class OrLogicFilter extends BaseLogicFilter
 {
     const LOGIC_OPERATOR = Operator::LOGIC_OR;
-
-    public function __construct(array $array, $stringFilter)
-    {
-        parent::__construct($array, $stringFilter);
-    }
 
     /**
      * Logic filter of OR condition

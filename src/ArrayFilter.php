@@ -2,11 +2,6 @@
 
 namespace Seredenko;
 
-use Seredenko\Filters\AndLogicFilter;
-use Seredenko\Filters\FieldFilter;
-use Seredenko\Filters\OrLogicFilter;
-use Seredenko\Filters\RangeFilter;
-
 /**
  * Class ArrayFilter
  *
@@ -30,22 +25,8 @@ class ArrayFilter extends \ArrayObject
      */
     public function offsetGet($filterString)
     {
-        if (strpos($filterString, Operator::FIELDS_DELIMITER))
-        {
-            $filter = new FieldFilter($this->getArrayCopy(), $filterString);
-        }
-        elseif (strpos($filterString, Operator::RANGE_DELIMITER))
-        {
-            $filter = new RangeFilter($this->getArrayCopy(), $filterString);
-        }
-        elseif (strpos($filterString, Operator::LOGIC_OR))
-        {
-            $filter = new OrLogicFilter($this->getArrayCopy(), $filterString);
-        }
-        else
-        {
-            $filter = new AndLogicFilter($this->getArrayCopy(), $filterString);
-        }
+        $filter = StaticFilterFactory::factory($filterString);
+        $filter->setArray($this->getArrayCopy());
 
         return new $this($filter->filter());
     }

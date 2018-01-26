@@ -19,9 +19,8 @@ class RangeFilter implements Filterable
      * @param array $array
      * @param       $rangeString
      */
-    public function __construct(array $array, $rangeString)
+    public function __construct($rangeString)
     {
-        $this->array = $array;
         list($this->start, $this->end) = explode(Operator::RANGE_DELIMITER, $rangeString);
     }
 
@@ -41,5 +40,13 @@ class RangeFilter implements Filterable
         }
 
         return $this->array;
+    }
+
+    /**
+     * @param array $arrayCopy
+     */
+    public function setArray(array $arrayCopy)
+    {
+        $this->array = $arrayCopy;
     }
 }

@@ -9,7 +9,7 @@ use Seredenko\Operator;
  * Class BaseLogicFilter
  * @package Seredenko\Filters
  */
-abstract class BaseLogicFilter
+abstract class BaseLogicFilter implements Filterable
 {
     const LOGIC_OPERATOR = null;
 
@@ -27,32 +27,10 @@ abstract class BaseLogicFilter
      * @param array $array
      * @param       $stringFilter
      */
-    public function __construct(array $array, $stringFilter)
+    public function __construct($stringFilter)
     {
-        $this->array = $array;
-
-        $this->filterMask = array_fill(0, count($this->array), false);
-
         foreach (explode(static::LOGIC_OPERATOR, $stringFilter) as $filter) {
             $this->conditions[] = explode(' ', trim($filter));
-        }
-    }
-
-    /**
-     * Checking variable $v always string. For filter we need change string to another types, like boolean or int.
-     *
-     * @param $v
-     */
-    protected function convertVariableType(&$v)
-    {
-        if (is_int($v)) {
-            $v = intval($v);
-        } elseif (is_float($v)) {
-            $v = floatval($v);
-        } elseif ($v == 'true' || $v == 'false') {
-            $v = $v == 'true' ? true : false;
-        } elseif ($v == '' || $v == 'null') {
-            $v = null;
         }
     }
 
@@ -79,6 +57,33 @@ abstract class BaseLogicFilter
         $this->array = array_intersect_key($this->array, array_flip(array_keys($this->filterMask, true)));
 
         return $this->array;
+    }
+
+    /**
+     * @param array $arrayCopy
+     */
+    public function setArray(array $arrayCopy)
+    {
+        $this->array = $arrayCopy;
+        $this->filterMask = array_fill(0, count($this->array), false);
+    }
+
+    /**
+     * Checking variable $v always string. For filter we need change string to another types, like boolean or int.
+     *
+     * @param $v
+     */
+    private function convertVariableType(&$v)
+    {
+        if (is_int($v)) {
+            $v = intval($v);
+        } elseif (is_float($v)) {
+            $v = floatval($v);
+        } elseif ($v == 'true' || $v == 'false') {
+            $v = $v == 'true' ? true : false;
+        } elseif ($v == '' || $v == 'null') {
+            $v = null;
+        }
     }
 
     /**

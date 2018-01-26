@@ -8,14 +8,9 @@ use Seredenko\Operator;
  * Class AndLogicFilter
  * @package Seredenko\Filters
  */
-class AndLogicFilter extends BaseLogicFilter implements Filterable
+class AndLogicFilter extends BaseLogicFilter
 {
     const LOGIC_OPERATOR = Operator::LOGIC_AND;
-
-    public function __construct(array $array, $stringFilter)
-    {
-        parent::__construct($array, $stringFilter);
-    }
 
     /**
      * Logic filter of AND condition

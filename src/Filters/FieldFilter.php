@@ -20,9 +20,8 @@ class FieldFilter implements Filterable
      * @param array $array
      * @param       $fieldsString
      */
-    public function __construct(array $array, $fieldsString)
+    public function __construct($fieldsString)
     {
-        $this->array = $array;
         $this->fields = array_map('trim',explode(Operator::FIELDS_DELIMITER,$fieldsString));
     }
 
@@ -37,5 +36,10 @@ class FieldFilter implements Filterable
             $value = array_intersect_key($value, array_flip($this->fields));
         }
         return $this->array;
+    }
+
+    public function setArray(array $arrayCopy)
+    {
+        $this->array = $arrayCopy;
     }
 }
